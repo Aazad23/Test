@@ -1,0 +1,165 @@
+<Image>:
+    size_hint_x: 0.7
+    allow_stretch: True    
+
+<Button>:
+    background_color: 0.5,0.5,0.5,1
+    bold: True
+
+<Separator@Widget>:
+    canvas:
+        Color:
+            rgba: 0.2, 0.2, 0., 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<HSeparator@Separator>:
+    size_hint_y: None
+    height: dp(2)
+
+<VSeparator@Separator>:
+    size_hint_x: None
+    width: dp(2)
+
+ScreenManagement:
+    MainScreen:
+
+<MainScreen>:
+    name: 'mainscreen'
+    GridLayout:
+        cols: 1
+        rows: 2
+        size: root.width, root.height
+        spacing: 10
+
+        GridLayout:
+            cols: 2
+            rows: 1
+            size: root.width, root.height
+            spacing: 10
+            
+            GridLayout:
+                cols: 1
+                rows: 2
+                size: root.width, root.height
+                spacing: 10
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y: None
+                    height: 150
+                    Label:
+                        text: 'Select Image'
+                        font_size: '20sp'
+                        bold: True
+                AnchorLayout:
+                    anchor_x: 'center'
+                    anchor_y: 'center'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        FileChooserListView:
+                            id: filechooser
+                            path: "./"
+                            on_selection: app.setPath(self.selection and self.selection[0] or '')
+
+            BoxLayout:
+                orientation: 'vertical'
+                GridLayout:
+                    cols: 1
+                    rows: 2
+                    size: root.width, root.height
+                    spacing: 10
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint_y: None
+                        height: 150
+                        Label:
+                            text: 'Set Parameters'
+                            font_size: '20sp'
+                            bold: True
+                    GridLayout:
+                        rows: 2
+                        cols: 3
+                        size: root.width, root.height
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            Slider:
+                                id: alpha
+                                value: 50
+                                min: 0
+                                max: 100
+                                step: 1
+                                orientation: 'vertical'
+                            Label:
+                                text: 'alpha = '+str(alpha.value)
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            Slider:
+                                id: beta
+                                value: 50
+                                min: 0
+                                max: 100
+                                step: 1
+                                orientation: 'vertical'
+                            Label:
+                                text: 'beta = '+str(beta.value)
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            Slider:
+                                id: delta
+                                value: 10
+                                min: 0
+                                max: 100
+                                step: 1
+                                orientation: 'vertical'
+                            Label:
+                                text: 'delta = '+str(delta.value)
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            Slider:
+                                id: wline
+                                value: 50
+                                min: 0
+                                max: 100
+                                step: 1
+                                orientation: 'vertical'
+                            Label:
+                                text: 'W Line = '+str(wline.value)
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            Slider:
+                                id: wedge
+                                value: 50
+                                min: 0
+                                max: 100
+                                step: 1
+                                orientation: 'vertical'
+                            Label:
+                                text: 'W Edge = '+str(wedge.value)
+
+                        AnchorLayout:
+                            anchor_x: 'center'
+                            anchor_y: 'center'
+                            Slider:
+                                id: wterm
+                                value: 50
+                                min: 0
+                                max: 100
+                                step: 1
+                                orientation: 'vertical'
+                            Label:
+                                text: 'W Term = '+str(wterm.value)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: 80
+            Button:
+                text: 'Process Image'
+                id: button2
+                on_release: app.processImageButtonClick()
